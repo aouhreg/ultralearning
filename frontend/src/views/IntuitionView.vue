@@ -95,8 +95,11 @@
       </div>
 
       <div v-if="teachFeedback" class="card">
-        <h3 class="font-semibold mb-3 text-primary">AI 導師反饋</h3>
-        <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-wrap">{{ teachFeedback }}</div>
+        <h3 class="font-semibold mb-3 text-primary flex items-center gap-2">
+          <span>🤖</span> AI 導師反饋
+          <span v-if="teachLoading" class="cursor-blink text-primary text-sm font-normal"></span>
+        </h3>
+        <div class="markdown-body" v-html="parsedTeachFeedback"></div>
       </div>
     </div>
 
@@ -138,9 +141,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { goalsApi, aiApi } from '@/api'
+import { marked } from 'marked'
 
 const route = useRoute()
 const topic = ref('')
@@ -156,6 +160,8 @@ const analogyConcept = ref('')
 const background = ref('')
 const analogyLoading = ref(false)
 const analogies = ref(null)
+
+const parsedTeachFeedback = computed(() => marked.parse(teachFeedback.value || ''))
 
 const modes = [
   { key: 'explain', label: '💡 費曼解釋' },

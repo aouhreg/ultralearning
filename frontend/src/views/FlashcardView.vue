@@ -35,18 +35,24 @@
         </div>
       </div>
 
-      <!-- Flashcard -->
-      <div class="card min-h-64 flex flex-col items-center justify-center text-center cursor-pointer mb-4"
-           @click="showAnswer = !showAnswer">
-        <div v-if="!showAnswer">
-          <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">問題</p>
-          <p class="text-xl font-medium">{{ currentCard.front }}</p>
-          <p class="text-gray-500 text-sm mt-6">點擊查看答案</p>
-        </div>
-        <div v-else>
-          <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">答案</p>
-          <p class="text-xl font-medium text-green-300">{{ currentCard.back }}</p>
-          <p v-if="currentCard.memoryTip" class="text-sm text-primary mt-4 italic">💡 {{ currentCard.memoryTip }}</p>
+      <!-- Flashcard 3D Flip -->
+      <div class="flip-card mb-4" style="height: 260px;" @click="showAnswer = !showAnswer">
+        <div class="flip-card-inner" :class="{ flipped: showAnswer }">
+          <!-- Front -->
+          <div class="flip-card-front bg-surface-card border border-surface-border cursor-pointer select-none">
+            <p class="text-xs text-primary/70 uppercase tracking-widest font-semibold mb-5">問題</p>
+            <p class="text-xl font-medium leading-relaxed">{{ currentCard.front }}</p>
+            <div class="absolute bottom-5 flex items-center gap-1.5 text-gray-600 text-xs">
+              <span>點擊翻轉</span>
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </div>
+          </div>
+          <!-- Back -->
+          <div class="flip-card-back bg-surface-card border border-green-500/30 cursor-pointer select-none">
+            <p class="text-xs text-green-400/70 uppercase tracking-widest font-semibold mb-5">答案</p>
+            <p class="text-xl font-medium text-green-300 leading-relaxed">{{ currentCard.back }}</p>
+            <p v-if="currentCard.memoryTip" class="absolute bottom-5 text-sm text-primary/80 italic px-4">💡 {{ currentCard.memoryTip }}</p>
+          </div>
         </div>
       </div>
 

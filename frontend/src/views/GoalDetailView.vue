@@ -31,7 +31,10 @@
         <div class="flex gap-2 mt-4">
           <button v-for="p in [25,50,75,100]" :key="p"
             @click="updateProgress(p)"
-            class="text-xs px-3 py-1 rounded-full border border-surface-border hover:border-primary hover:text-primary transition-colors">
+            :class="goal.overallProgress === p
+              ? 'border-primary text-primary bg-primary/10'
+              : 'border-surface-border text-gray-500 hover:border-primary hover:text-primary'"
+            class="text-xs px-3 py-1.5 rounded-full border transition-all duration-150">
             {{ p }}%
           </button>
         </div>
