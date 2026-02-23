@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -64,8 +65,4 @@ public class AuthController {
         ));
     }
 
-    // helper to avoid importing Map everywhere
-    private static java.util.Map<String, String> Map(String k, String v) {
-        return java.util.Map.of(k, v);
-    }
 }
